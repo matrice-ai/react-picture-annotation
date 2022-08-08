@@ -267,14 +267,13 @@ export default class ReactPictureAnnotation extends React.Component<
     if (annotationData) {
       const refreshShapesWithAnnotationData = () => {
         this.selectedId = null;
-        this.shapes = annotationData.map(
-          (eachAnnotationData) =>
-            new RectShape(
-              eachAnnotationData,
-              this.onShapeChange,
-              this.annotationStyle
-            )
-        );
+        this.shapes = annotationData.map((eachAnnotationData) => {
+          // console.log(i, this.props.colors[i])
+          return new RectShape(eachAnnotationData, this.onShapeChange, {
+            ...this.annotationStyle,
+            shapeStrokeStyle: eachAnnotationData.color ?? "blue",
+          });
+        });
         this.onShapeChange();
       };
 
@@ -332,6 +331,8 @@ export default class ReactPictureAnnotation extends React.Component<
     const selectedShapeIndex = this.shapes.findIndex(
       (item) => item.getAnnotationData().id === this.selectedId
     );
+    // tslint:disable-next-line:no-console
+    console.log(">>>>>", comment, selectedShapeIndex);
     this.shapes[selectedShapeIndex].setComment(comment);
     this.setState({ inputComment: comment });
   };
