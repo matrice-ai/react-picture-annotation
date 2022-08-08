@@ -5,4 +5,5 @@ export interface IAnnotation<T = IShapeData> {
   id: string;
   mark: T;
   color?: string;
+  data?: any;
 }

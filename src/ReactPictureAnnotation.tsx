@@ -27,7 +27,7 @@ interface IReactPictureAnnotationProps {
   defaultAnnotationSize?: number[];
   inputElement: (
     value: string,
-    onChange: (value: string) => void,
+    onChange: (value: string, data: any) => void,
     onDelete: () => void
   ) => React.ReactElement;
 }
@@ -53,7 +53,7 @@ export default class ReactPictureAnnotation extends React.Component<
     annotationStyle: defaultShapeStyle,
     inputElement: (
       value: string,
-      onChange: (value: string) => void,
+      onChange: (value: string, data: any) => void,
       onDelete: () => void
     ) => (
       <DefaultInputSection
@@ -327,13 +327,13 @@ export default class ReactPictureAnnotation extends React.Component<
     }
   };
 
-  private onInputCommentChange = (comment: string) => {
+  private onInputCommentChange = (comment: string, data: any = {}) => {
     const selectedShapeIndex = this.shapes.findIndex(
       (item) => item.getAnnotationData().id === this.selectedId
     );
     // tslint:disable-next-line:no-console
-    console.log(">>>>>", comment, selectedShapeIndex);
-    this.shapes[selectedShapeIndex].setComment(comment);
+    // console.log(">>>>>", comment, selectedShapeIndex);
+    this.shapes[selectedShapeIndex].setComment(comment, data);
     this.setState({ inputComment: comment });
   };
 
