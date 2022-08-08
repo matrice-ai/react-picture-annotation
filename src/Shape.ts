@@ -65,7 +65,7 @@ export interface IShape {
   ) => IShapeBase;
   getAnnotationData: () => IAnnotation;
   adjustMark: (adjustBase: IShapeAdjustBase) => void;
-  setComment: (comment: string) => void;
+  setComment: (comment: string, data: any) => void;
   equal: (data: IAnnotation) => boolean;
 }
 
@@ -192,14 +192,16 @@ export class RectShape implements IShape {
     return this.annotationData;
   };
 
-  public setComment = (comment: string) => {
+  public setComment = (comment: string, data: any = {}) => {
     this.annotationData.comment = comment;
+    this.annotationData.data = data;
   };
 
   public equal = (data: IAnnotation) => {
     return (
       data.id === this.annotationData.id &&
       data.comment === this.annotationData.comment &&
+      data.color === this.annotationData.color &&
       data.mark.x === this.annotationData.mark.x &&
       data.mark.y === this.annotationData.mark.y &&
       data.mark.width === this.annotationData.mark.width &&

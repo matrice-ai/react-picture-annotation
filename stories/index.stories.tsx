@@ -27,6 +27,7 @@ storiesOf("Hello World", module)
         {
           id: "a",
           comment: "HA HA HA",
+          color: "red",
           mark: {
             type: "RECT",
             width: 161,
@@ -56,6 +57,7 @@ storiesOf("Hello World", module)
       return (
         <ReactPictureAnnotation
           width={size.width}
+          // colors={[]}
           height={size.height}
           annotationData={annotationData}
           onChange={(data) => setAnnotationData(data)}

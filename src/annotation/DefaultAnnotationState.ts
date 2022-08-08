@@ -9,6 +9,7 @@ import TransformationState from "./TransfromationState";
 
 export class DefaultAnnotationState implements IAnnotationState {
   private readonly context: ReactPictureAnnotation;
+
   constructor(context: ReactPictureAnnotation) {
     this.context = context;
   }

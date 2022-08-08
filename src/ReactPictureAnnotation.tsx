@@ -27,7 +27,7 @@ interface IReactPictureAnnotationProps {
   defaultAnnotationSize?: number[];
   inputElement: (
     value: string,
-    onChange: (value: string) => void,
+    onChange: (value: string, data: any) => void,
     onDelete: () => void
   ) => React.ReactElement;
 }
@@ -53,7 +53,7 @@ export default class ReactPictureAnnotation extends React.Component<
     annotationStyle: defaultShapeStyle,
     inputElement: (
       value: string,
-      onChange: (value: string) => void,
+      onChange: (value: string, data: any) => void,
       onDelete: () => void
     ) => (
       <DefaultInputSection
@@ -267,14 +267,12 @@ export default class ReactPictureAnnotation extends React.Component<
     if (annotationData) {
       const refreshShapesWithAnnotationData = () => {
         this.selectedId = null;
-        this.shapes = annotationData.map(
-          (eachAnnotationData) =>
-            new RectShape(
-              eachAnnotationData,
-              this.onShapeChange,
-              this.annotationStyle
-            )
-        );
+        this.shapes = annotationData.map((eachAnnotationData) => {
+          return new RectShape(eachAnnotationData, this.onShapeChange, {
+            ...this.annotationStyle,
+            shapeStrokeStyle: eachAnnotationData.color ?? "blue",
+          });
+        });
         this.onShapeChange();
       };
 
@@ -328,11 +326,13 @@ export default class ReactPictureAnnotation extends React.Component<
     }
   };
 
-  private onInputCommentChange = (comment: string) => {
+  private onInputCommentChange = (comment: string, data: any = {}) => {
     const selectedShapeIndex = this.shapes.findIndex(
       (item) => item.getAnnotationData().id === this.selectedId
     );
-    this.shapes[selectedShapeIndex].setComment(comment);
+    // tslint:disable-next-line:no-console
+    // console.log(">>>>>", comment, selectedShapeIndex);
+    this.shapes[selectedShapeIndex].setComment(comment, data);
     this.setState({ inputComment: comment });
   };
 
