@@ -268,7 +268,6 @@ export default class ReactPictureAnnotation extends React.Component<
       const refreshShapesWithAnnotationData = () => {
         this.selectedId = null;
         this.shapes = annotationData.map((eachAnnotationData) => {
-          // console.log(i, this.props.colors[i])
           return new RectShape(eachAnnotationData, this.onShapeChange, {
             ...this.annotationStyle,
             shapeStrokeStyle: eachAnnotationData.color ?? "blue",

@@ -201,6 +201,7 @@ export class RectShape implements IShape {
     return (
       data.id === this.annotationData.id &&
       data.comment === this.annotationData.comment &&
+      data.color === this.annotationData.color &&
       data.mark.x === this.annotationData.mark.x &&
       data.mark.y === this.annotationData.mark.y &&
       data.mark.width === this.annotationData.mark.width &&
